@@ -1,0 +1,40 @@
+
+<div *ngIf="user.isLogged">
+<h5>Post it</h5>
+<div style="color: darkred;">{{ post_error }}</div>
+  <h6>check the category and write a post:</h6>
+<div>
+  <span *ngFor=" let c of categories; let i = index; ">
+    <input type="checkbox" name="categories" [(ngModel)]=" postForm.categories[ c.id ] "> {{ c.name }}
+  </span>
+</div>
+<div>Subject: <input name="subject" [(ngModel)]=" postForm.subject "></div>
+  <div><textarea name="content" [(ngModel)]=" postForm.content " cols="40" rows="4" placeholder="Please input content"></textarea></div>
+    <div>File/Photo Upload: <input type="file"></div>
+      <div>
+        Options:
+          <input type="checkbox" [(ngModel)]=" postForm.sticky_forum "> Sticky on selected forums.
+          <input type="checkbox" [(ngModel)]=" postForm.sticky_all_forum "> Sticky on all forums.
+      </div>
+    <div>
+          <button (click)="onSubmitPostForm()">Submit Post</button>
+</div>
+    
+</div>
+<div *ngIf="user.isLogged">
+<hr>
+<h5>Posts</h5>
+<div *ngFor="let post of posts; let i = index">
+  <div class="subject">
+   <b style="color:red">Subject:</b> {{ post.subject }}
+    <div *ngIf="user._isAdmin">
+    <button (click)=" onClickEdit( post ) " *ngIf="user.isLogged">EDIT</button>
+    <button (click)=" onClickDelete( post ) " *ngIf="user.isLogged">DELETE</button>
+  </div>
+  </div>
+<div>
+    <b style="color:blue">Name:</b><b> {{ post.name }}</b>
+  </div>
+<div class="content" style="padding: 1em; background-color: white">{{ post.content }}</div>
+</div>
+</div>

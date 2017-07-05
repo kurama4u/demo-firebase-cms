@@ -1,0 +1,26 @@
+<div class="container">
+<div *ngIf="user.isLogged" style="float:left"> 
+  <a class="btn btn-primary" routerLink='/category'>Category</a> 
+  <a class="btn btn-primary" routerLink='/post'>Post</a>  
+ </div>
+    <div style="float:right">
+      <div *ngIf="!user.isLogged ">
+      <button (click)="onLoginWithGoogle()">Google Login</button>
+      <button (click)="onLoginWithFacebook()">Facebook Login</button>
+      </div>
+    <div *ngIf="user.isLogged ">
+  <div style="display:inline-block">
+     You are logged in as <b>{{ user.auth.currentUser.displayName}}</b>
+      <button class="btn btn-danger"style="display:inline-block"(click)=" user.logout() ">Log out</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!user.isLogged" class="jumbotron text-center">
+  <div class="container">
+    <h1>Welcome to iForum!</h1>
+    <p>Join and share your thought sign in now</p>
+    <a><img src="assets/mobile_apps.jpg" width="500" height="500"></a>
+  </div>
+</div>   
+</div>
+

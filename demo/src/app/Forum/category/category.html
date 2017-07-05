@@ -1,0 +1,32 @@
+
+<div *ngIf="user.isLogged">
+  <h5>Forum Category</h5>
+    <div style="color: darkred;">{{ category_error }}</div>
+    <form [formGroup]="form" *ngIf="user._isAdmin">
+    <h6>Create a forum category:</h6>
+<div class="form-group">
+  <input formControlName="category_id" name="category_id" placeholder="Category ID">
+  <input formControlName="category_name" name="category_name" placeholder="Category Name">
+  <button type="button" class="btn btn-primary" value="Submit" (click)="onClickCreateCategory()">Submit</button>
+  </div>
+</form>
+
+
+<div *ngIf=" categories && categories.length ">
+  <table>
+    <tr>
+      <th>ID </th>
+      <th>Name</th>
+      <th>Description</th>
+    
+    </tr>
+    <tr *ngFor=" let c of categories; let i = index">
+      <td>{{ c.id }}</td>
+      <td><input [readonly]="!user._isAdmin" type="text" name="name" value="{{ c.name }}" [(ngModel)]="c.name"></td>
+      <td><input [readonly]="!user._isAdmin" type="text" name="desc" value="{{ c.description }}" [(ngModel)]="c.description"></td>
+      <td *ngIf="user._isAdmin"><button class="btn btn-success" (click)="onClickCategoryEdit( c.id )">SAVE</button></td>
+      <td *ngIf="user._isAdmin"><button class="btn btn-danger"(click)="onClickCategoryDelete( c.id )">DELETE</button></td>
+    </tr>
+    </table>
+  </div>
+</div>
